@@ -1,7 +1,7 @@
 import random
 import turtle as t
 
-t.bgcolor('yellow')
+t.bgcolor(0.11, 0.38, 0.170)
 
 caterpillar = t.Turtle()
 caterpillar.shape('square')
@@ -20,8 +20,9 @@ leaf.hideturtle()
 leaf.speed(0)
 
 game_started = False
+
 text_turtle = t.Turtle()
-text_turtle.write('Press SPACE to start the game', align='center', font=('Arial', 16, 'bold'))
+text_turtle.write('Press SPACE to start the game', font=('Arial', 16, 'bold'), align='center')
 text_turtle.hideturtle()
 
 score_turtle = t.Turtle()
@@ -75,6 +76,8 @@ def start_game():
     if game_started:
         return
 
+    game_started = True
+
     score = 0
     text_turtle.clear()
 
@@ -121,6 +124,7 @@ def move_right():
 
 
 t.onkey(start_game, 'space')
+
 t.onkey(move_up, 'Up')
 t.onkey(move_right, 'Right')
 t.onkey(move_down, 'Down')
