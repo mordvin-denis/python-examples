@@ -2,9 +2,11 @@ import turtle
 import time
 import random
 
+
+SCORE_FILE_NAME = "score.txt"
+
 delay = 0.1
 score = 0
-high_score = 0
 
 # Creating a window screen
 wn = turtle.Screen()
@@ -43,8 +45,26 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 250)
-pen.write("Score : 0  High Score : 0", align="center",
-          font=("candara", 24, "bold"))
+
+
+def load_high_score_from_file():
+    result = 0
+    with open(SCORE_FILE_NAME, 'r') as file:
+        result = int(file.read())
+
+    return result
+
+
+def update_saved_high_score_in_file(high_score):
+    with open(SCORE_FILE_NAME, "w") as file:
+        file.write(str(high_score))
+
+
+saved_high_score = load_high_score_from_file()
+high_score = saved_high_score
+
+pen.write("Score : 0 High Score : {} ".format(
+        high_score), align="center", font=("candara", 24, "bold"))
 
 
 # assigning key directions
@@ -98,7 +118,7 @@ def outside_window():
 
 
 def game_over():
-    global colors, shapes, delay, score
+    global colors, shapes, delay, score, saved_high_score
 
     time.sleep(1)
     head.goto(0, 0)
@@ -116,6 +136,10 @@ def game_over():
     pen.clear()
     pen.write("Score : {} High Score : {} ".format(
         score, high_score), align="center", font=("candara", 24, "bold"))
+
+    if high_score > saved_high_score:
+        saved_high_score = high_score
+        update_saved_high_score_in_file(high_score)
 
 
 def eat_food():
