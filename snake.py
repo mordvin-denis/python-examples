@@ -1,6 +1,7 @@
 import turtle
 import time
 import random
+import json
 
 
 SCORE_FILE_NAME = "score.txt"
@@ -50,14 +51,16 @@ pen.goto(0, 250)
 def load_high_score_from_file():
     result = 0
     with open(SCORE_FILE_NAME, 'r') as file:
-        result = int(file.read())
+        raw_data = file.read()
+        parsed_data = json.loads(raw_data)
+        result = parsed_data['high_score']
 
     return result
 
 
 def update_saved_high_score_in_file(high_score):
     with open(SCORE_FILE_NAME, "w") as file:
-        file.write(str(high_score))
+        file.write(json.dumps({"high_score": high_score, "test_data": "test"}))
 
 
 saved_high_score = load_high_score_from_file()
