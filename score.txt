@@ -1,1 +1,4 @@
-50
+{
+    "high_score": 60,
+    "test_data": "test"
+}
