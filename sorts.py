@@ -1,10 +1,22 @@
 # Терминология
 # Массив - он же список
 
+
+test_arr = [2, 1, 3, 4, 5, 6]
+
+
 # 1
 # написать функцию, которая обменивает местами два значения в списке/массиве
 # функция принимает параметрами массив и два индекса в массиве, значения которых надо обменять
 
+def swap(lst, index1, index2):
+    t = lst[index1]
+    lst[index1] = lst[index2]
+    lst[index2] = t
+
+
+# swap(test_arr, 1, 3)
+# print(test_arr)
 
 # 2
 # Написать функцию, которая ищет в заданном массиве индекс (позицию) минимального значения в заданном диапазоне индексов
@@ -13,11 +25,41 @@
 # функция возвращает индекс найденного минимального значения
 # просьба написать (ДЛЯ ТРЕНИРОВКИ) код этой функции своим циклом и не делать срезы в массиве
 
+
+def get_min_index(lst, from_index, to_index):
+    if to_index - from_index < 2:
+        if to_index >= 0:
+            return to_index
+
+    min_index = from_index
+    for i in range(from_index + 1, to_index + 1):
+        if lst[i] < lst[min_index]:
+            min_index = i
+    return min_index
+
+
+# min_index = get_min_index(test_arr, 1, 5)
+# print(min_index)
+
 # 3
 # Написать функцию сортировки ВЫБОРОМ
 # Функция принимает массив и сортирует его. Прямо его, не создавая новый.
 # Иногда лучше создавать новый сортированный, иногда лучше сортировать заданный.
 # В данном случае для тренировки делаем первый вариант. Представим что мы ограничены в памяти или что массив огромный
+
+
+def select_sort(lst):
+    n = len(lst)
+
+    for i in range(n - 1):
+        min_index = get_min_index(lst, i, n - 1)
+        swap(lst, min_index, i)
+
+    return lst
+
+# select_sort(test_arr)
+# print(test_arr)
+
 
 # Как устроен алгоритм. (сортировка по возрастанию)
 # Пусть массив состоит из N элементов, тогда надо сделать N-1 итераций цикла.
@@ -47,3 +89,27 @@
 # в рамках следующих проходов надо доходить обменами на I элементов меньше до конца, так как на каждой итерации
 # на точное место (наверх) всплывает один элемент. Например у нас 8 всплыло
 
+
+print(test_arr)
+
+
+def bubble_sort(lst):
+    n = len(lst)
+
+    for i in range(n - 1):
+        swaps_counter = 0
+        for j in range(n - 1 - i):
+            if lst[j + 1] < lst[j]:
+                swap(lst, j, j + 1)
+                swaps_counter += 1
+
+        if swaps_counter == 0:
+            break
+
+        print(test_arr)
+
+    return lst
+
+
+bubble_sort(test_arr)
+# print(test_arr)
