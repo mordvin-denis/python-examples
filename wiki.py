@@ -1,4 +1,5 @@
 # From  https://pypi.org/project/Wikipedia-API/
+# pip3 install wikipedia-api
 
 import wikipediaapi
 
