@@ -8,12 +8,13 @@ canvas_height = 400
 root = Tk()
 
 c = Canvas(root, width=canvas_width, height=canvas_height, background='deep sky blue')
-c.create_rectangle(-5, canvas_height - 100, canvas_width + 5, canvas_height + 5, \
+c.create_rectangle(-5, canvas_height - 100, canvas_width + 5, canvas_height + 5,
                    fill='sea green', width=0)
 c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
 c.pack()
 
 color_cycle = cycle(['light blue', 'light green', 'light pink', 'light yellow', 'light cyan'])
+
 egg_width = 45
 egg_height = 55
 egg_score = 10
@@ -43,7 +44,7 @@ score_text = c.create_text(10, 10, anchor='nw', font=game_font, fill='darkblue',
 
 lives_remaining = 3
 lives_text = c.create_text(canvas_width - 10, 10, anchor='ne', font=game_font, fill='darkblue',
-                          text='Жизней: ' + str(lives_remaining))
+                           text='Жизней: ' + str(lives_remaining))
 
 eggs = []
 
@@ -100,20 +101,20 @@ def check_catch():
 def increase_score(points):
     global score, egg_speed, egg_interval
     score += points
-    egg_speed = int(egg_speed + difficulty_factor)
-    egg_interval = int(egg_interval + difficulty_factor)
+    egg_speed = int(egg_speed * difficulty_factor)
+    egg_interval = int(egg_interval * difficulty_factor)
     c.itemconfigure(score_text, text='Счет: ' + str(score))
 
 
 def move_left(event):
-    (x1, y1, x2, y2) = c.coords(catcher)
+    x1, *rest = c.coords(catcher)
 
     if x1 > 0:
         c.move(catcher, -20, 0)
 
 
 def move_right(event):
-    (x1, y1, x2, y2) = c.coords(catcher)
+    x1, y1, x2, y2 = c.coords(catcher)
 
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
